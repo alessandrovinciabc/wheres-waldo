@@ -48,6 +48,8 @@ function Home(props) {
       x: offsetX,
       y: offsetY,
     });
+
+    console.log(result);
   };
 
   return (
