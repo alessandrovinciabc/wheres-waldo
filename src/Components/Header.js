@@ -7,6 +7,8 @@ import fry from '../assets/images/fry.png';
 import deadpool from '../assets/images/deadpool.png';
 
 let Container = styled.div`
+  position: fixed;
+
   background-color: #212b44;
   padding: 1rem 2rem;
   width: 100%;
