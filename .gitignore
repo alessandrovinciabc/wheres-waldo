@@ -25,3 +25,4 @@ yarn-error.log*
 # firebase / github stuff
 .github
 .firebaserc
+.firebase
