@@ -19,14 +19,16 @@ let GameImage = styled.img.attrs((props) => ({
   }
 `;
 
+const targetSize = 80; //px
+
 let TargetBox = styled.div`
   position: absolute;
-  top: ${(props) => props.pos.y - 40}px;
-  left: ${(props) => props.pos.x - 40}px;
+  top: ${(props) => props.pos.y - targetSize / 2}px;
+  left: ${(props) => props.pos.x - targetSize / 2}px;
   border: 3px solid white;
   background: transparent;
-  height: 80px;
-  width: 80px;
+  height: ${(props) => targetSize}px;
+  width: ${(props) => targetSize}px;
 `;
 
 function Home(props) {
@@ -39,8 +41,6 @@ function Home(props) {
     setShowTarget(true);
     setTargetPos({ x: pageX, y: pageY });
     setTarget({ x: offsetX, y: offsetY });
-
-    console.log(offsetX, offsetY);
   };
 
   return (
