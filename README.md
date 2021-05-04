@@ -10,6 +10,7 @@ Interactive game of Where's Waldo. Find Waldo and click on him. The faster you a
 
 - HTML, CSS, Javascript
 - React
+- Styled Components
 - Firebase
 - Jest, React Testing Library
 

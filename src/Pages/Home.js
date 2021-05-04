@@ -5,6 +5,8 @@ import Header from '../Components/Header.js';
 
 import mainImage from '../assets/images/whereswaldo.jpg';
 
+import isInsideTargetBox from '../logic/target.js';
+
 let GameImage = styled.img.attrs((props) => ({
   src: mainImage,
   draggable: false,
@@ -41,6 +43,11 @@ function Home(props) {
     setShowTarget(true);
     setTargetPos({ x: pageX, y: pageY });
     setTarget({ x: offsetX, y: offsetY });
+
+    let result = isInsideTargetBox({ x: 2958, y: 324 }, targetSize / 2, {
+      x: offsetX,
+      y: offsetY,
+    });
   };
 
   return (
