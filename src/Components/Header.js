@@ -8,6 +8,7 @@ import deadpool from '../assets/images/deadpool.png';
 
 let Container = styled.div`
   position: fixed;
+  z-index: 1;
 
   background-color: #212b44;
   padding: 1rem 2rem;
