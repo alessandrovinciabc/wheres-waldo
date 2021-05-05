@@ -10,6 +10,8 @@ import isInsideTargetBox from '../logic/target.js';
 import getCharacters from '../logic/fetchData.js';
 
 import ReactModal from 'react-modal';
+import { useTimer } from 'use-timer';
+
 import Button from '../Components/Button.js';
 
 let GameImage = styled.img.attrs((props) => ({
@@ -46,6 +48,8 @@ function Home(props) {
   let [won, setWon] = useState(false);
   let [startGameModal, setStartGameModal] = useState(true);
 
+  const { time, start, pause, reset } = useTimer();
+
   useEffect(() => {
     let getDataAndSetState = async () => {
       let characters = await getCharacters();
@@ -63,8 +67,9 @@ function Home(props) {
     if (characters.length === 0) return;
     if (characters.every((el) => el.found === true)) {
       setWon(true);
+      pause();
     }
-  }, [characters]);
+  }, [characters, pause]);
 
   let handleClick = (e) => {
     let { offsetX, offsetY, pageX, pageY } = e.nativeEvent;
@@ -95,6 +100,7 @@ function Home(props) {
 
   let handleGameStart = () => {
     setStartGameModal(false);
+    start();
   };
 
   let modalStyle = {
@@ -114,7 +120,7 @@ function Home(props) {
 
   return (
     <React.Fragment>
-      <Header characters={characters} />
+      <Header characters={characters} time={time} />
       <GameImage data-testid="gameImage" onClick={handleClick} />
       {showTarget ? (
         <TargetBox data-testid="targetBox" pos={targetPos} />

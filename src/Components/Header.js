@@ -75,7 +75,7 @@ function Header(props) {
         <Character img={deadpool} checked={deadpoolObj?.found} />
         <Character img={fry} checked={fryObj?.found} />
       </Character.Display>
-      <Score>00:00:00</Score>
+      <Score>{props.time}s</Score>
       <Button>Restart</Button>
     </Container>
   );
