@@ -10,6 +10,7 @@ import isInsideTargetBox from '../logic/target.js';
 import getCharacters from '../logic/fetchData.js';
 
 import ReactModal from 'react-modal';
+import Button from '../Components/Button.js';
 
 let GameImage = styled.img.attrs((props) => ({
   src: mainImage,
@@ -43,6 +44,7 @@ function Home(props) {
   let [characters, setCharacters] = useState([]);
 
   let [won, setWon] = useState(false);
+  let [startGameModal, setStartGameModal] = useState(true);
 
   useEffect(() => {
     let getDataAndSetState = async () => {
@@ -91,6 +93,10 @@ function Home(props) {
     }
   };
 
+  let handleGameStart = () => {
+    setStartGameModal(false);
+  };
+
   let modalStyle = {
     content: {
       height: '184px',
@@ -115,6 +121,13 @@ function Home(props) {
       ) : null}
       <ReactModal isOpen={won} ariaHideApp={false} style={modalStyle}>
         You won!
+      </ReactModal>
+      <ReactModal
+        isOpen={startGameModal}
+        ariaHideApp={false}
+        style={modalStyle}
+      >
+        <Button onClick={handleGameStart}>Play now</Button>
       </ReactModal>
     </React.Fragment>
   );

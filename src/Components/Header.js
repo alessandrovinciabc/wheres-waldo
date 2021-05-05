@@ -1,6 +1,7 @@
 import React from 'react';
 
 import styled from 'styled-components';
+import Button from './Button.js';
 
 import waldo from '../assets/images/waldo.png';
 import fry from '../assets/images/fry.png';
@@ -62,25 +63,6 @@ let Score = styled.div`
   font-size: 2rem;
 `;
 
-let RestartButton = styled.button`
-  height: 3rem;
-  width: 10rem;
-
-  background-color: #ee3c3c;
-  color: white;
-  font-size: 1.2rem;
-
-  border-radius: 5px;
-  border: none;
-  outline: none;
-
-  cursor: pointer;
-
-  &:hover {
-    opacity: 0.7;
-  }
-`;
-
 function Header(props) {
   let waldoObj = props.characters?.find((el) => el.name === 'waldo');
   let deadpoolObj = props.characters?.find((el) => el.name === 'deadpool');
@@ -94,7 +76,7 @@ function Header(props) {
         <Character img={fry} checked={fryObj?.found} />
       </Character.Display>
       <Score>00:00:00</Score>
-      <RestartButton>Restart</RestartButton>
+      <Button>Restart</Button>
     </Container>
   );
 }
