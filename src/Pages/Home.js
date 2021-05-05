@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Header from '../Components/Header.js';
@@ -7,7 +9,7 @@ import mainImage from '../assets/images/whereswaldo.jpg';
 
 import isInsideTargetBox from '../logic/target.js';
 
-import getCharacters from '../logic/fetchData.js';
+import getCharacters, { sendScore, getScores } from '../logic/data.js';
 
 import ReactModal from 'react-modal';
 import { useTimer } from 'use-timer';
@@ -41,6 +43,18 @@ let TargetBox = styled.div`
   width: ${(props) => targetSize}px;
 `;
 
+let NameInput = styled.input.attrs((props) => ({
+  type: 'text',
+  autoComplete: 'off',
+  placeholder: 'ABC',
+  maxLength: '3',
+}))`
+  height: 2rem;
+  font-size: 1.2rem;
+  width: 3rem;
+  text-align: center;
+`;
+
 function Home(props) {
   let [showTarget, setShowTarget] = useState(false);
   let [targetPos, setTargetPos] = useState({ x: 0, y: 0 });
@@ -48,8 +62,10 @@ function Home(props) {
 
   let [won, setWon] = useState(false);
   let [startGameModal, setStartGameModal] = useState(true);
+  let [nameInput, setNameInput] = useState('');
 
   const { time, start, pause, reset } = useTimer();
+  const history = useHistory();
 
   useEffect(() => {
     let getDataAndSetState = async () => {
@@ -104,6 +120,28 @@ function Home(props) {
     start();
   };
 
+  let handleNameChange = (e) => {
+    setNameInput(e.target.value.toUpperCase());
+  };
+
+  let handleGameReset = () => {
+    setShowTarget(false);
+    setTargetPos({ x: 0, y: 0 });
+    setCharacters((previous) => {
+      let copy = previous.slice();
+
+      return copy.map((char) => {
+        char.found = false;
+        return char;
+      });
+    });
+
+    setWon(false);
+    setStartGameModal(true);
+    setNameInput('');
+    reset(); //timer
+  };
+
   let modalStyle = {
     content: {
       height: '184px',
@@ -114,20 +152,33 @@ function Home(props) {
       color: 'black',
       fontSize: '1.2rem',
       display: 'flex',
-      justifyContent: 'center',
+      justifyContent: 'space-evenly',
       alignItems: 'center',
+      flexDirection: 'column',
+      textAlign: 'center',
     },
   };
 
   return (
     <React.Fragment>
-      <Header characters={characters} time={time} />
+      <Header characters={characters} time={time} onReset={handleGameReset} />
       <GameImage data-testid="gameImage" onClick={handleClick} />
       {showTarget ? (
         <TargetBox data-testid="targetBox" pos={targetPos} />
       ) : null}
       <ReactModal isOpen={won} ariaHideApp={false} style={modalStyle}>
         You won!
+        <br /> Your time was: {time}s
+        <NameInput value={nameInput} onChange={handleNameChange} />
+        <Button
+          disabled={nameInput.length !== 3}
+          onClick={() => {
+            sendScore(nameInput, time);
+            history.push('/leaderboard');
+          }}
+        >
+          Send score
+        </Button>
       </ReactModal>
       <ReactModal
         isOpen={startGameModal}

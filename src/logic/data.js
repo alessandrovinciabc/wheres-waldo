@@ -14,4 +14,20 @@ async function getCharacters() {
   return output;
 }
 
+async function getScores() {
+  let highscores = await db.collection('leaderboard').get();
+
+  highscores.forEach((score) => {
+    console.log(score.data());
+  });
+}
+
+function sendScore(name, score) {
+  db.collection('leaderboard').add({
+    name,
+    time: score,
+  });
+}
+
 export default getCharacters;
+export { getScores, sendScore };

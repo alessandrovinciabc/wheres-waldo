@@ -76,7 +76,7 @@ function Header(props) {
         <Character img={fry} checked={fryObj?.found} />
       </Character.Display>
       <Score>{props.time}s</Score>
-      <Button>Restart</Button>
+      <Button onClick={props.onReset}>Restart</Button>
     </Container>
   );
 }

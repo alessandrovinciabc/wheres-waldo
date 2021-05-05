@@ -17,6 +17,10 @@ let Button = styled.button`
   &:hover {
     opacity: 0.7;
   }
+
+  &:disabled {
+    opacity: 0.4;
+  }
 `;
 
 export default Button;
