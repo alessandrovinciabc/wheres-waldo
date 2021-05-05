@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, withRouter } from 'react-router-dom';
 
 import Home from './Pages/Home.js';
 import Leaderboard from './Pages/Leaderboard.js';
@@ -14,8 +14,12 @@ function App() {
       <GlobalStyle />
       <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/leaderboard" exact render={Leaderboard} />
+          <Route path="/" exact component={withRouter(Home)} />
+          <Route
+            path="/leaderboard"
+            exact
+            component={withRouter(Leaderboard)}
+          />
           <Route path="/*" component={MissingPage} />
         </Switch>
       </BrowserRouter>

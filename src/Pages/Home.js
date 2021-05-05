@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Header from '../Components/Header.js';
@@ -9,7 +8,7 @@ import mainImage from '../assets/images/whereswaldo.jpg';
 
 import isInsideTargetBox from '../logic/target.js';
 
-import getCharacters, { sendScore, getScores } from '../logic/data.js';
+import getCharacters, { sendScore } from '../logic/data.js';
 
 import ReactModal from 'react-modal';
 import { useTimer } from 'use-timer';
@@ -65,7 +64,6 @@ function Home(props) {
   let [nameInput, setNameInput] = useState('');
 
   const { time, start, pause, reset } = useTimer();
-  const history = useHistory();
 
   useEffect(() => {
     let getDataAndSetState = async () => {
@@ -174,7 +172,7 @@ function Home(props) {
           disabled={nameInput.length !== 3}
           onClick={() => {
             sendScore(nameInput, time);
-            history.push('/leaderboard');
+            props.history.push('/leaderboard');
           }}
         >
           Send score

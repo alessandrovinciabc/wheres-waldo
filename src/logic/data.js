@@ -14,12 +14,20 @@ async function getCharacters() {
   return output;
 }
 
-async function getScores() {
-  let highscores = await db.collection('leaderboard').get();
+async function getScores(callback) {
+  let highscores = db.collection('leaderboard');
 
-  highscores.forEach((score) => {
-    console.log(score.data());
-  });
+  await highscores
+    .orderBy('time')
+    .limit(10)
+    .get()
+    .then((snapshots) => {
+      let arr = [];
+      snapshots.forEach((score) => {
+        arr.push(score.data());
+      });
+      callback(arr);
+    });
 }
 
 function sendScore(name, score) {

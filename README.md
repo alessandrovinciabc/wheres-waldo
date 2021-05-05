@@ -16,6 +16,6 @@ Interactive game of Where's Waldo. Find Waldo and click on him. The faster you a
 
 ## Attribution
 
-I earn no compensation from this site and do not own any of the images inside of it.
+I get no compensation from this site and do not own any of the images inside of it.
 
 The "main" image is taken from here: https://pxlcon.jimmysomething.com/
