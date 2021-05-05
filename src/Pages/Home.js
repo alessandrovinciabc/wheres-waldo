@@ -35,6 +35,7 @@ let TargetBox = styled.div`
   top: ${(props) => props.pos.y - targetSize / 2}px;
   left: ${(props) => props.pos.x - targetSize / 2}px;
   border: 3px solid white;
+  outline: 3px solid black;
   background: transparent;
   height: ${(props) => targetSize}px;
   width: ${(props) => targetSize}px;
