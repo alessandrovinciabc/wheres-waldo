@@ -9,6 +9,8 @@ import isInsideTargetBox from '../logic/target.js';
 
 import getCharacters from '../logic/fetchData.js';
 
+import ReactModal from 'react-modal';
+
 let GameImage = styled.img.attrs((props) => ({
   src: mainImage,
   draggable: false,
@@ -40,6 +42,8 @@ function Home(props) {
   let [targetPos, setTargetPos] = useState({ x: 0, y: 0 });
   let [characters, setCharacters] = useState([]);
 
+  let [won, setWon] = useState(false);
+
   useEffect(() => {
     let getDataAndSetState = async () => {
       let characters = await getCharacters();
@@ -52,6 +56,13 @@ function Home(props) {
 
     getDataAndSetState();
   }, []);
+
+  useEffect(() => {
+    if (characters.length === 0) return;
+    if (characters.every((el) => el.found === true)) {
+      setWon(true);
+    }
+  }, [characters]);
 
   let handleClick = (e) => {
     let { offsetX, offsetY, pageX, pageY } = e.nativeEvent;
@@ -80,6 +91,21 @@ function Home(props) {
     }
   };
 
+  let modalStyle = {
+    content: {
+      height: '184px',
+      width: '320px',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      color: 'black',
+      fontSize: '1.2rem',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+  };
+
   return (
     <React.Fragment>
       <Header characters={characters} />
@@ -87,6 +113,9 @@ function Home(props) {
       {showTarget ? (
         <TargetBox data-testid="targetBox" pos={targetPos} />
       ) : null}
+      <ReactModal isOpen={won} ariaHideApp={false} style={modalStyle}>
+        You won!
+      </ReactModal>
     </React.Fragment>
   );
 }
