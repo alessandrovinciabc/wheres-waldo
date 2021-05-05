@@ -82,12 +82,16 @@ let RestartButton = styled.button`
 `;
 
 function Header(props) {
+  let waldoObj = props.characters?.find((el) => el.name === 'waldo');
+  let deadpoolObj = props.characters?.find((el) => el.name === 'deadpool');
+  let fryObj = props.characters?.find((el) => el.name === 'fry');
+
   return (
     <Container>
       <Character.Display>
-        <Character img={waldo} checked />
-        <Character img={deadpool} />
-        <Character img={fry} />
+        <Character img={waldo} checked={waldoObj?.found} />
+        <Character img={deadpool} checked={deadpoolObj?.found} />
+        <Character img={fry} checked={fryObj?.found} />
       </Character.Display>
       <Score>00:00:00</Score>
       <RestartButton>Restart</RestartButton>
