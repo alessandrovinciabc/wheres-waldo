@@ -63,6 +63,17 @@ let Score = styled.div`
   font-size: 2rem;
 `;
 
+let Wrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+`;
+
+let LeaderboardButton = styled(Button)`
+  background: none;
+`;
+
 function Header(props) {
   let waldoObj = props.characters?.find((el) => el.name === 'waldo');
   let deadpoolObj = props.characters?.find((el) => el.name === 'deadpool');
@@ -76,7 +87,12 @@ function Header(props) {
         <Character img={fry} checked={fryObj?.found} />
       </Character.Display>
       <Score>{props.time}s</Score>
-      <Button onClick={props.onReset}>Restart</Button>
+      <Wrapper>
+        <LeaderboardButton onClick={props.onLeaderboard}>
+          Leaderboard
+        </LeaderboardButton>
+        <Button onClick={props.onReset}>Restart</Button>
+      </Wrapper>
     </Container>
   );
 }

@@ -140,6 +140,10 @@ function Home(props) {
     reset(); //timer
   };
 
+  let gotoLeaderboard = () => {
+    props.history.push('/leaderboard');
+  };
+
   let modalStyle = {
     content: {
       height: '184px',
@@ -159,7 +163,12 @@ function Home(props) {
 
   return (
     <React.Fragment>
-      <Header characters={characters} time={time} onReset={handleGameReset} />
+      <Header
+        characters={characters}
+        time={time}
+        onReset={handleGameReset}
+        onLeaderboard={gotoLeaderboard}
+      />
       <GameImage data-testid="gameImage" onClick={handleClick} />
       {showTarget ? (
         <TargetBox data-testid="targetBox" pos={targetPos} />
@@ -172,7 +181,7 @@ function Home(props) {
           disabled={nameInput.length !== 3}
           onClick={() => {
             sendScore(nameInput, time);
-            props.history.push('/leaderboard');
+            gotoLeaderboard();
           }}
         >
           Send score
