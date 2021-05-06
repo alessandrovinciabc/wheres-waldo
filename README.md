@@ -16,7 +16,7 @@ Interactive game of Where's Waldo. Find Waldo and the other characters and click
 - HTML, CSS, Javascript
 - React
 - Styled Components
-- Firebase's firestore (to store characters's positions and scores)
+- Firebase's hosting and firestore
 
 ## Attribution
 
